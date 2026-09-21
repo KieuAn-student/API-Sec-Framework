@@ -1,0 +1,11 @@
+{
+    "total_findings": 1,
+    "findings": [
+        {
+            "vulnerability": "BOLA / IDOR",
+            "severity": "Critical",
+            "endpoint": "/api/orders/{id}",
+            "evidence": "User B successfully accessed User A's object 1. Status 200."
+        }
+    ]
+}

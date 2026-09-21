@@ -1,0 +1,7 @@
+﻿PyYAML
+requests
+httpx
+pydantic
+jsonref
+fastapi
+uvicorn
