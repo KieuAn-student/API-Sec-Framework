@@ -1,11 +1,47 @@
 {
-    "total_findings": 1,
+    "total_findings": 7,
     "findings": [
         {
             "vulnerability": "BOLA / IDOR",
             "severity": "Critical",
             "endpoint": "/api/orders/{id}",
             "evidence": "User B successfully accessed User A's object 1. Status 200."
+        },
+        {
+            "vulnerability": "BFLA (Broken Function Level Authorization)",
+            "severity": "Critical",
+            "endpoint": "/api/admin/users",
+            "evidence": "Normal user token successfully accessed an Admin function. Status: 200"
+        },
+        {
+            "vulnerability": "Input Validation Flaw (SQL Injection 2)",
+            "severity": "High",
+            "endpoint": "/api/search",
+            "evidence": "Server crashed or returned 500 when sent malicious payload: 1; DROP TABLE users..."
+        },
+        {
+            "vulnerability": "Input Validation Flaw (XSS Attack)",
+            "severity": "High",
+            "endpoint": "/api/search",
+            "evidence": "Server crashed or returned 500 when sent malicious payload: <script>alert(1)</sc..."
+        },
+        {
+            "vulnerability": "Input Validation Flaw (Buffer Overflow (Long String))",
+            "severity": "High",
+            "endpoint": "/api/search",
+            "evidence": "Server crashed or returned 500 when sent malicious payload: AAAAAAAAAAAAAAAAAAAA..."
+        },
+        {
+            "vulnerability": "Input Validation Flaw (Format String)",
+            "severity": "High",
+            "endpoint": "/api/search",
+            "evidence": "Server crashed or returned 500 when sent malicious payload: %s%s%s%s%s..."
+        },
+        {
+            "vulnerability": "Input Validation Flaw (Special Characters)",
+            "severity": "High",
+            "endpoint": "/api/search",
+            "evidence": "Server crashed or returned 500 when sent malicious payload: !@#$%^&*()_+<>?:{}|~..."
         }
     ]
 }
