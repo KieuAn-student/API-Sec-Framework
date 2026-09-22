@@ -1,4 +1,4 @@
-﻿# REST API Security Testing Framework
+# REST API Security Testing Framework
 
 Đây là Framework kiểm thử bảo mật tự động dành cho REST API, tập trung phát hiện lỗ hổng Phân quyền (BOLA/IDOR) và Xác thực (Authentication) dựa trên OpenAPI Specification. Đồ án được thực hiện nhằm tối ưu hóa thời gian cho chuyên gia bảo mật thay vì phải làm thủ công.
 
@@ -33,4 +33,5 @@ python src/cli.py
 `
 
 ## 3. Xem kết quả (Report)
-Sau khi Framework chạy hoàn tất, hệ thống sẽ tự động sinh ra một file báo cáo có tên eport.json tại thư mục gốc. File này sẽ chứa bằng chứng (evidence) chỉ đích danh endpoint bị lỗi và mô tả kịch bản thao túng Token thành công.
+Sau khi Framework chạy hoàn tất, hệ thống sẽ tự động sinh ra một file báo cáo có tên 
+eport.json tại thư mục gốc. File này sẽ chứa bằng chứng (evidence) chỉ đích danh endpoint bị lỗi và mô tả kịch bản thao túng Token thành công.
