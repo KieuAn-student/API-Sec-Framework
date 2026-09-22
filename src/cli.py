@@ -34,7 +34,8 @@ def main():
         payload = BaselineGenerator.generate_from_schema(ep.request_body)
         
         # Test Auth (Thiếu Token)
-        finding_auth = AuthRules.check_missing_auth(engine, ep, payload)
+        if '/public' not in ep.path:
+            finding_auth = AuthRules.check_missing_auth(engine, ep, payload)
         if finding_auth: manager.add_finding(finding_auth)
         
         # Test BOLA (Token B truy cập Order 1 của Token A)
@@ -60,4 +61,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
