@@ -208,7 +208,7 @@ doc.add_paragraph('1. Tích hợp Mô hình Ngôn ngữ Lớn (LLM/AI):')
 doc.add_paragraph('Sử dụng trí tuệ nhân tạo (VD: GPT-4) vào module Generator. Thay vì sinh chuỗi "test_abc" vô nghĩa, AI có thể đọc mô tả (description) trong OpenAPI và suy luận ngữ nghĩa để sinh ra dữ liệu có ý nghĩa (Semantic Payload), giúp vượt qua các lớp filter nâng cao.')
 doc.add_paragraph('2. Mở rộng kho Ruleset:')
 doc.add_paragraph('Phát triển thêm thuật toán phát hiện lỗ hổng BFLA (Broken Function Level Authorization - leo thang đặc quyền từ User lên Admin) và BOPLA (Mass Assignment - gửi thừa tham số để thao túng database).')
-doc.add_paragraph('3. Xây dựng giao diện Web (GUI):')
+doc.add_paragraph('3. Tích hợp Input Validation và BFLA:\nNhóm đã hoàn thiện thêm 10 rules Fuzzing dữ liệu (SQL Injection, XSS, Path Traversal, Overflow, v.v...) để kiểm thử Input Validation. Đồng thời xây dựng kịch bản kiểm thử BFLA bằng cách thử nghiệm Token quyền thấp gọi vào API quyền cao (Admin).\n4. Xây dựng giao diện Web (GUI):')
 doc.add_paragraph('Trang bị thêm một Dashboard bằng ReactJS/VueJS để chuyên gia dễ dàng tải file spec lên, quan sát biểu đồ quét và xuất báo cáo PDF tự động, thay vì phải thao tác trên dòng lệnh Terminal.')
 
 doc.add_paragraph('4. Khả năng mở rộng và áp dụng thực tiễn (Scalability & Practicality)')
@@ -224,8 +224,8 @@ doc.add_paragraph('[4] Schemathesis, "Property-Based API Testing for OpenAPI and
 doc.add_paragraph('[5] V. Atlidakis, P. Godefroid, and M. Polishchuk, "RESTler: Stateful REST API Fuzzing," in Proceedings of the 41st International Conference on Software Engineering, 2019.')
 
 try:
-    doc.save(r"C:\Users\admin\.gemini\antigravity\scratch\API-Sec-Framework\Bao_Cao_Do_An_Full_Ban_Chuan.docx")
+    doc.save(r"C:\Users\admin\.gemini\antigravity\scratch\API-Sec-Framework\Bao_Cao_Do_An_Final_V3.docx")
     print("Saved Final DOCX")
 except PermissionError:
-    doc.save(r"C:\Users\admin\.gemini\antigravity\scratch\API-Sec-Framework\Bao_Cao_Do_An_Final_V2.docx")
+    doc.save(r"C:\Users\admin\.gemini\antigravity\scratch\API-Sec-Framework\Bao_Cao_Do_An_Final_V3_Fallback.docx")
     print("Saved Final DOCX (V2)")

@@ -7,6 +7,8 @@ from src.core.generator import BaselineGenerator
 from src.core.engine import HTTPEngine
 from src.rules.auth_rules import AuthRules
 from src.rules.bola_rules import BOLARules
+from src.rules.bfla_rules import BFLARules
+from src.rules.input_rules import InputValidationRules
 from src.analyzer.analyzer import FindingManager
 
 def main():
@@ -19,31 +21,43 @@ def main():
     # 1. Parse
     parser = OpenAPIParser(spec_path)
     inventory = parser.parse()
-    print(f"[*] Đã load {len(inventory.endpoints)} endpoints từ '{inventory.title}'.")
+    print(f"[*] Da load {len(inventory.endpoints)} endpoints tu '{inventory.title}'.")
 
     # 2. Engine
     engine = HTTPEngine("http://127.0.0.1:8000")
     manager = FindingManager()
 
     # 3. Test Rules
-    print("[*] Bắt đầu quét lỗ hổng...")
+    print("[*] Bat dau quet lo hong...")
     for ep in inventory.endpoints:
+        # Sinh dữ liệu chung cho endpoint
+        payload = BaselineGenerator.generate_from_schema(ep.request_body)
+        
+        # Test Auth (Thiếu Token)
+        finding_auth = AuthRules.check_missing_auth(engine, ep, payload)
+        if finding_auth: manager.add_finding(finding_auth)
+        
+        # Test BOLA (Token B truy cập Order 1 của Token A)
         if "/api/orders" in ep.path:
-            # Sinh dữ liệu
-            payload = BaselineGenerator.generate_from_schema(ep.request_body)
-            
-            # Test Auth
-            finding_auth = AuthRules.check_missing_auth(engine, ep, payload)
-            if finding_auth: manager.add_finding(finding_auth)
-            
-            # Test BOLA (Token B truy cập Order 1 của Token A)
             finding_bola = BOLARules.check_bola(engine, ep, payload, "token-a", "token-b", 1)
             if finding_bola: manager.add_finding(finding_bola)
+            
+        # Test BFLA (Token thường truy cập hàm Admin)
+        if "/api/admin" in ep.path:
+            finding_bfla = BFLARules.check_bfla(engine, ep, payload, "token-a")
+            if finding_bfla: manager.add_finding(finding_bfla)
+            
+        # Test Input Validation (Fuzzing 10 rules)
+        if "/api/search" in ep.path:
+            findings_input = InputValidationRules.check_input_validation(engine, ep, payload)
+            for f in findings_input:
+                manager.add_finding(f)
 
     # 4. Report
     manager.export_report("report.json")
-    print(f"[*] Quét hoàn tất. Tìm thấy {len(manager.findings)} lỗ hổng.")
-    print("[*] Kết quả được lưu tại report.json")
+    print(f"[*] Quet hoan tat. Tim thay {len(manager.findings)} lo hong.")
+    print("[*] Ket qua duoc luu tai report.json")
 
 if __name__ == '__main__':
     main()
+
